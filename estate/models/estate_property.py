@@ -8,8 +8,8 @@ class TestModel(models.Model):
     name = fields.Char("Title", required=True)
     description = fields.Text("Description")
     postcode = fields.Char("Postcode")
-    date_availability = fields.Date("Available From", default=lambda self: self._default_date_availability(),
-                                    copy=False)
+    # date_availability = fields.Date("Available From", default=lambda self: self._default_date_availability(),
+    #                                 copy=False)
     expected_price = fields.Float("Expected Price", required=True)
     selling_price = fields.Float("Selling Price", copy=False, readonly=True)
     bedrooms = fields.Integer("Bedrooms", default=2)
