@@ -5,8 +5,6 @@ class TestModel(models.Model):
     _name = "estate.property"
     _description = "Real Estate Property"
 
-    # name = fields.Char()
-
     name = fields.Char("Title", required=True)
     description = fields.Text("Description")
     postcode = fields.Char("Postcode")
