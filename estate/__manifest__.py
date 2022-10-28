@@ -3,7 +3,7 @@
     'name': "Real Estate App",
 
     'summary': """
-        This is the estate module for developer How-Tos""",
+        This is the estate module for developer How-Tos now on new ubuntu laptop""",
 
     'description': """
         This is a long description of module's purpose
