@@ -44,5 +44,7 @@ class EstateProperty(models.Model):
     )
     active = fields.Boolean("Active", default=True)
 
+    property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+
     def _default_date_availability(self):
         return fields.Date.context_today(self) + relativedelta(months=3)
