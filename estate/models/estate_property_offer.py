@@ -8,6 +8,8 @@ class EstatePropertyOffer(models.Model):
     _description = "Real Estate Property Offer"
 
     price = fields.Float("Price", required=True)
+    # validity = fields.Integer(string="Validity (days)", default=7)
+    # date_deadline = fields.Date(string="Deadline", compute="_compute_date_deadline", inverse="_inverse_date_deadline")
 
     state = fields.Selection(
         selection=[
