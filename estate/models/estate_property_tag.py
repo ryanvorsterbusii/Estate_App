@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+
+from odoo import fields, models
+
+
+class EstatePropertyType(models.Model):
+    _name = "estate.property.tag"
+    _description = "Real Estate Property Tag"
+    _order = "name"
+
+    name = fields.Char("Name", required=True)
+    color = fields.Integer("Color Index")
