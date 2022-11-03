@@ -1,6 +1,7 @@
 from odoo import fields, models
 from dateutil.relativedelta import relativedelta
-
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_compare, float_is_zero
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -49,5 +50,6 @@ class EstateProperty(models.Model):
     buyer_id = fields.Many2one("res.partner", string="Buyer", readonly=True, copy=False)
     tag_ids = fields.Many2many("estate.property.tag", string="Tags")
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
+
     def _default_date_availability(self):
         return fields.Date.context_today(self) + relativedelta(months=3)
