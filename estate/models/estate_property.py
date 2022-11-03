@@ -1,7 +1,8 @@
-from odoo import fields, models
+from odoo import fields, models, api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare, float_is_zero
+
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -53,3 +54,40 @@ class EstateProperty(models.Model):
 
     def _default_date_availability(self):
         return fields.Date.context_today(self) + relativedelta(months=3)
+
+    # Computed Fields for total area and best price
+
+    total_area = fields.Integer(compute="compute_total_area")
+
+    @api.depends("living_area", "garden_area")
+    def compute_total_area(self):
+        for prop in self:
+            prop.total_area = prop.living_area + prop.garden_area
+
+    best_price = fields.Integer(compute="compute_best_price")
+
+    api.depends("offer_ids.price")
+
+    def compute_best_price(self):
+        for prop in self:
+            prop.best_price = max(prop.offer_ids.mapped("price")) if prop.offer_ids else 0.0
+
+    api.onchange("garden")
+
+    def onchange_garden(self):
+        if self.garden:
+            self.garden = 10
+            self.garden_orientation = "N"
+        else:
+            self.garden = 0
+            self.garden_orientation = False
+
+    def action_sold(self):
+        if "canceled" in self.mapped("state"):
+            raise UserError("Canceled properties cannot be sold.")
+        return self.write({"state": "sold"})
+
+    def action_cancel(self):
+        if "sold" in self.mapped("state"):
+            raise UserError("Sold properties cannot be canceled.")
+        return self.write({"state": "canceled"})
