@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<!--    <record id="estate_property_type_view_form" model="ir.ui.view">-->
-<!--        <field name="name">estate.property.type.form</field>-->
-<!--        <field name="model">estate.property.type</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <form>-->
-<!--                <sheet>-->
-<!--                    <div class="oe_button_box" name="button_box">-->
-<!--                        <button name="%(estate.estate_property_offer_action)d" type="action" class="oe_stat_button" icon="fa-money">-->
-<!--                            <field name="offer_count" widget="stat info" string="Offers"/>-->
-<!--                        </button>-->
+    <record id="estate_property_type_view_form" model="ir.ui.view">
+        <field name="name">estate.property.type.form</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
 
-<!--                    </div>-->
-<!--                    <div class="oe_title">-->
-<!--                        <h1>-->
-<!--                            <field name="name"/>-->
-<!--                        </h1>-->
-<!--                    </div>-->
-<!--                    <notebook>-->
-<!--                        <page string="Properties">-->
-<!--                            <field name="property_ids" readonly="1">-->
-<!--                                <tree>-->
-<!--                                    <field name="name"/>-->
-<!--                                    <field name="expected_price"/>-->
-<!--                                    <field name="state"/>-->
-<!--                                </tree>-->
-<!--                            </field>-->
-<!--                        </page>-->
-<!--                    </notebook>-->
-<!--                </sheet>-->
-<!--            </form>-->
-<!--        </field>-->
-<!--    </record>-->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+
+                    <notebook>
+                        <page string="Properties">
+                            <field name="property_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
 
     <record id="estate_property_type_view_tree" model="ir.ui.view">
         <field name="name">estate.property.type.tree</field>
