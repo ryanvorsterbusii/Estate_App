@@ -1,6 +1,6 @@
 from odoo import fields, models, api
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError, ValidationError
+
 from odoo.tools import float_compare, float_is_zero
 
 
@@ -96,3 +96,10 @@ class EstateProperty(models.Model):
         if "sold" in self.mapped("state"):
             raise UserError("Sold properties cannot be canceled.")
         return self.write({"state": "canceled"})
+
+    @api.model
+    def unlink(self):
+        if not set(self.mapped("state")) <= {"new", "canceled"}:
+            raise UserError("Only new or canceled properties can be deleted.")
+            return super().unlink()
+
