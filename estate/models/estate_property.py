@@ -1,6 +1,6 @@
 from odoo import fields, models, api
 from dateutil.relativedelta import relativedelta
-
+from odoo.exceptions import UserError
 from odoo.tools import float_compare, float_is_zero
 
 
@@ -87,6 +87,11 @@ class EstateProperty(models.Model):
             self.garden = 0
             self.garden_orientation = False
 
+    def unlink(self):
+        if not set(self.mapped("state")) <= {"new", "canceled"}:
+            raise UserError("Only new or canceled properties can be deleted.")
+        return super().unlink()
+
     def action_sold(self):
         if "canceled" in self.mapped("state"):
             raise UserError("Canceled properties cannot be sold.")
@@ -97,9 +102,4 @@ class EstateProperty(models.Model):
             raise UserError("Sold properties cannot be canceled.")
         return self.write({"state": "canceled"})
 
-    @api.model
-    def unlink(self):
-        if not set(self.mapped("state")) <= {"new", "canceled"}:
-            raise UserError("Only new or canceled properties can be deleted.")
-            return super().unlink()
 
