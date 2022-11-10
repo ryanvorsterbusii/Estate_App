@@ -8,7 +8,7 @@ class EstateProperty(models.Model):
 
 
 def action_sold(self):
-    soldaction = super().action_sold()
+    res = super().action_sold()
     journal = self.env["account.journal"].search([("type", "=", "sale")])
 
     for prop in self:
@@ -19,10 +19,20 @@ def action_sold(self):
                 "journal_id": journal.id,
                 "invoice_line_ids": [
                     (
+                        {
+                            "name": prop.name,
+                            "quantity": 1.0,
+                            "price_unit": prop.selling_price*6.0/100.0
+                        }
 
-                    )
+                    ),
+                    {
+                        "name": "Admin Fees",
+                        "quantity": 1.0,
+                        "price_unit": 100.0
+                    }
                 ]
 
             }
         )
-    return soldaction
+    return res
