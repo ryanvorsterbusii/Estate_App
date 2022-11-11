@@ -9,8 +9,10 @@
             <form>
                 <header>
                     <button name="action_sold" type="object" string="Sold" states="new,offer_received"/>
-                    <button name="action_sold" type="object" string="Sold" states="offer_accepted" class="oe_highlight"/>
-                    <button name="action_cancel" type="object" string="Cancel" states="new,offer_received,offer_accepted"/>
+                    <button name="action_sold" type="object" string="Sold" states="offer_accepted"
+                            class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            states="new,offer_received,offer_accepted"/>
                     <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/>
                 </header>
                 <sheet>
@@ -49,7 +51,8 @@
                             </group>
                         </page>
                         <page string="Offers">
-                            <field name="offer_ids" attrs="{'readonly': [('state', 'in', ('offer_accepted', 'sold', 'canceled'))]}"/>
+                            <field name="offer_ids"
+                                   attrs="{'readonly': [('state', 'in', ('offer_accepted', 'sold', 'canceled'))]}"/>
                         </page>
                         <page string="Other Info">
                             <group>
@@ -69,7 +72,7 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Properties" >
+            <tree string="Properties">
                 <field name="name"/>
                 <field name="property_type_id"/>
                 <field name="postcode"/>
@@ -122,4 +125,43 @@
             </p>
         </field>
     </record>
+
+    <record id="estate_property_view_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+
+            <kanban default_group_by ="property_type_id" records_draggable = "0">
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <field name="name"/>
+                        </div>
+
+                        <div>
+                            Expected Price: <field name="expected_price"/>
+                        </div>
+
+
+                        <div t-if = "record.state.raw_value == offer_received">
+                            Best Price: <field name="best_price"/>
+                        </div>
+
+
+                        <div t-if = "record.selling_price.raw_value">
+                            Selling Price: <field name="selling_price"/>
+                        </div>
+
+
+                    </t>
+                </templates>
+            </kanban>
+
+        </field>
+
+
+    </record>
+
+
 </odoo>
