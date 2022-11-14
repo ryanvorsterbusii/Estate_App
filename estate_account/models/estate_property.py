@@ -9,7 +9,7 @@ class EstateProperty(models.Model):
 
 def action_sold(self):
     res = super().action_sold()
-    journal = self.env["account.journal"].search([("type", "=", "sale")])
+    journal = self.env["account.journal"].search([("type", "=", "sale")], limit=1)
 
     for prop in self:
         self.env["account.move"].create(
@@ -19,18 +19,24 @@ def action_sold(self):
                 "journal_id": journal.id,
                 "invoice_line_ids": [
                     (
+                        0,
+                        0,
                         {
                             "name": prop.name,
                             "quantity": 1.0,
-                            "price_unit": prop.selling_price*6.0/100.0
+                            "price_unit": prop.selling_price * 6.0 / 100.0
                         }
 
-                    ),
-                    {
-                        "name": "Admin Fees",
-                        "quantity": 1.0,
-                        "price_unit": 100.0
-                    }
+                    ), (
+                        0,
+                        0,
+
+                        {
+                            "name": "Admin Fees",
+                            "quantity": 1.0,
+                            "price_unit": 100.0
+                        }
+                    )
                 ]
 
             }
