@@ -24,10 +24,11 @@ def action_sold(self):
                         {
                             "name": prop.name,
                             "quantity": 1.0,
-                            "price_unit": prop.selling_price * 6.0 / 100.0
-                        }
+                            "price_unit": prop.selling_price * 6.0 / 100.0,
+                        },
 
-                    ), (
+                    ),
+                    (
                         0,
                         0,
 
@@ -35,9 +36,9 @@ def action_sold(self):
                             "name": "Admin Fees",
                             "quantity": 1.0,
                             "price_unit": 100.0
-                        }
-                    )
-                ]
+                        },
+                    ),
+                ],
 
             }
         )
