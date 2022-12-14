@@ -19,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', "web"],
 
     # always loaded
     'data': [
@@ -28,10 +28,15 @@
         "views/estate_menus.xml",
         "views/estate_property_type_views.xml",
         "views/estate_property_tag_views.xml",
-        "views/estate_property_offer_views.xml"
+        "views/estate_property_offer_views.xml",
+        "views/res_users.xml",
+        "report/estate_reports.xml",
+        "report/estate_report_views.xml",
     ],
     # only loaded in demonstration mode
-    'demo': [],
+    'demo': [
+        "data/estate_demo.xml"
+    ],
     'installable': True,
     'application': True,
     'autoinstall': False
